@@ -14,24 +14,36 @@ public class TestLobby : MonoBehaviour
     [Header("UI")]
     public string lobbyName = "MyLobby";
     public string lobbyCode;
+    public string playerName = "Player";
     private Lobby hostLobby;
     private Lobby joinedLobby;
     private float heartbeatTimer;
     private float lobbyUpdateTimer;
-    private string playerName = "R4HK00N 1";
     private bool playerIsInLobby;
     private async void Start()
     {
-        await UnityServices.InitializeAsync();
+        //await UnityServices.InitializeAsync();
+
+        //AuthenticationService.Instance.SignedIn += () =>
+        //{
+        //    Debug.Log("Signed in " + AuthenticationService.Instance.PlayerId);
+        //};
+
+        //await AuthenticationService.Instance.SignInAnonymouslyAsync();
+
+        //Debug.Log(playerName);
+    }
+    private async void Authenticate()
+    {
+        InitializationOptions options = new InitializationOptions();
+        options.SetProfile(playerName);
+
+        await UnityServices.InitializeAsync(options);
 
         AuthenticationService.Instance.SignedIn += () =>
         {
             Debug.Log("Signed in " + AuthenticationService.Instance.PlayerId);
         };
-
-        await AuthenticationService.Instance.SignInAnonymouslyAsync();
-
-        Debug.Log(playerName);
     }
     private void Update()
     {
@@ -279,6 +291,10 @@ public class TestLobby : MonoBehaviour
             Debug.Log(e);
         }
     }
+    public void SetPlayerName()
+    {
+        Authenticate();
+    }
     public void CreateLobbyClicked()
     {
         CreateLobby(lobbyName);
@@ -298,5 +314,12 @@ public class TestLobby : MonoBehaviour
             lobbyUI.playerNames.Add(player.Data["PlayerName"].Value);
         }
         lobbyUI.SetPlayer(joinedLobby.AvailableSlots);
+    }
+    private void OnLobbyChanges(ILobbyChanges changes)
+    {
+        if (changes.PlayerJoined.Changed)
+        {
+            SetPlayerDataToUI();
+        }
     }
 }

@@ -6,10 +6,9 @@ using UnityEngine;
 public class LobbyButtons : MonoBehaviour
 {
     public TestLobby lobbyManager;
+    public TMP_InputField playerNameInput;
     public TMP_InputField LobbyNameInput;
     public TMP_InputField LobbyCodeInput;
-    public string lobbyName;
-    public string lobbyCode;
     [Header("Created lobby UI")]
     public TMP_Text joinLobbyCodeText;
     public TMP_Text LobbyNameText;
@@ -17,6 +16,10 @@ public class LobbyButtons : MonoBehaviour
     public TMP_Text[] playerNameText;
     public List<string> playerNames = new List<string>();
 
+    public void SetPlayerName()
+    {
+        lobbyManager.playerName = playerNameInput.text;
+    }
     public void SetLobbyName()
     {
         lobbyManager.lobbyName = LobbyNameInput.text;
@@ -25,12 +28,19 @@ public class LobbyButtons : MonoBehaviour
     {
         lobbyManager.lobbyCode = LobbyCodeInput.text;
     }
-    public void CreateLobbyButton(int buttenClickedIndex)
+    public void SetPlayerButton()
     {
+        lobbyManager.playerName = playerNameInput.text;
+        lobbyManager.SetPlayerName();
+    }
+    public void CreateLobbyButton()
+    {
+        lobbyManager.lobbyName = LobbyNameInput.text;
         lobbyManager.CreateLobbyClicked();
     }
     public void JoinLobbyByCode()
     {
+        lobbyManager.lobbyName = LobbyNameInput.text;
         lobbyManager.JoinLobbyClicked();
     }
 
