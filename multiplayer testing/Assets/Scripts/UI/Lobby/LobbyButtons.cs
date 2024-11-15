@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.Services.Lobbies.Models;
 using UnityEngine;
 
 public class LobbyButtons : MonoBehaviour
@@ -49,44 +50,44 @@ public class LobbyButtons : MonoBehaviour
         joinLobbyCodeText.text = code;
         LobbyNameText.text = lobbyName;
     }
-    public void SetPlayer(int amountOfPlayers)
+    public void SetPlayer(int amountOfPlayers, Lobby lobby)
     {
         Debug.Log(amountOfPlayers);
         switch (amountOfPlayers)
         {
             case 3:
                 playerTemplate[0].SetActive(true);
-                playerNameText[0].text = playerNames[0];
+                playerNameText[0].text = lobby.Players[0].Data["PlayerName"].Value;
                 break;
             case 2:
                 playerTemplate[0].SetActive(true);
-                playerNameText[0].text = playerNames[0];
+                playerNameText[0].text = lobby.Players[0].Data["PlayerName"].Value;
 
                 playerTemplate[1].SetActive(true);
-                playerNameText[1].text = playerNames[1];
+                playerNameText[1].text = lobby.Players[1].Data["PlayerName"].Value;
                 break;
             case 1:
                 playerTemplate[0].SetActive(true);
-                playerNameText[0].text = playerNames[0];
+                playerNameText[0].text = lobby.Players[0].Data["PlayerName"].Value;
 
                 playerTemplate[1].SetActive(true);
-                playerNameText[1].text = playerNames[1];
+                playerNameText[1].text = lobby.Players[1].Data["PlayerName"].Value;
 
                 playerTemplate[2].SetActive(true);
-                playerNameText[2].text = playerNames[2];
+                playerNameText[2].text = lobby.Players[2].Data["PlayerName"].Value;
                 break;
             case 0:
                 playerTemplate[0].SetActive(true);
-                playerNameText[0].text = playerNames[0];
+                playerNameText[0].text = lobby.Players[0].Data["PlayerName"].Value;
 
                 playerTemplate[1].SetActive(true);
-                playerNameText[1].text = playerNames[1];
+                playerNameText[1].text = lobby.Players[1].Data["PlayerName"].Value;
 
                 playerTemplate[2].SetActive(true);
-                playerNameText[2].text = playerNames[2];
+                playerNameText[2].text = lobby.Players[2].Data["PlayerName"].Value;
 
                 playerTemplate[3].SetActive(true);
-                playerNameText[3].text = playerNames[3];
+                playerNameText[3].text = lobby.Players[3].Data["PlayerName"].Value;
                 break;
         }
     }

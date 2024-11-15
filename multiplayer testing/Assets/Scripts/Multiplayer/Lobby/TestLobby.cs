@@ -49,6 +49,10 @@ public class TestLobby : MonoBehaviour
     {
         HandleLobbyHeartbeat();
         HandleLobbyPollForUpdates();
+        if (playerIsInLobby)
+        {
+            SetPlayerDataToUI();
+        }
     }
     private async void HandleLobbyHeartbeat()
     {
@@ -106,7 +110,8 @@ public class TestLobby : MonoBehaviour
 
             Printplayers(hostLobby);
             SetLobbyDataToUI();
-            SetPlayerDataToUI();
+            //SetPlayerDataToUI();
+            playerIsInLobby = true;
         }
         catch(LobbyServiceException e)
         {
@@ -161,7 +166,8 @@ public class TestLobby : MonoBehaviour
 
             Printplayers(joinedLobby);
             SetLobbyDataToUI();
-            SetPlayerDataToUI();
+            //SetPlayerDataToUI();
+            playerIsInLobby = true;
         }
         catch(LobbyServiceException e)
         {
@@ -309,18 +315,6 @@ public class TestLobby : MonoBehaviour
     }
     public void SetPlayerDataToUI()
     {
-        foreach (Player player in joinedLobby.Players)
-        {
-            lobbyUI.playerNames.Add(player.Data["PlayerName"].Value);
-        }
-        lobbyUI.SetPlayer(joinedLobby.AvailableSlots);
-    }
-    private void OnLobbyChanges(ILobbyChanges changes)
-    {
-        changes.ApplyToLobby(joinedLobby);
-        if (changes.PlayerJoined.Changed)
-        {
-            SetPlayerDataToUI();
-        }
+        lobbyUI.SetPlayer(joinedLobby.AvailableSlots, joinedLobby);
     }
 }
