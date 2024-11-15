@@ -13,6 +13,9 @@ public class LobbyButtons : MonoBehaviour
     [Header("Created lobby UI")]
     public TMP_Text joinLobbyCodeText;
     public TMP_Text LobbyNameText;
+    public GameObject[] playerTemplate;
+    public TMP_Text[] playerNameText;
+    public string[] playerNames;
 
     public void SetLobbyName()
     {
@@ -35,5 +38,25 @@ public class LobbyButtons : MonoBehaviour
     {
         joinLobbyCodeText.text = code;
         LobbyNameText.text = lobbyName;
+    }
+    public void SetPlayer(int amountOfPlayers)
+    {
+        Debug.Log(amountOfPlayers);
+        switch (amountOfPlayers)
+        {
+            case 3:
+                playerTemplate[0].SetActive(true);
+                playerNameText[0].text = playerNames[0];
+                break;
+            case 2:
+                playerTemplate[1].SetActive(true);
+                break;
+            case 1:
+                playerTemplate[2].SetActive(true);
+                break;
+            case 0:
+                playerTemplate[3].SetActive(true);
+                break;
+        }
     }
 }

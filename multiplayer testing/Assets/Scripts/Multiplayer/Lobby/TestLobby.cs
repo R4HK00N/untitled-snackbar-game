@@ -18,6 +18,7 @@ public class TestLobby : MonoBehaviour
     private float heartbeatTimer;
     private float lobbyUpdateTimer;
     private string playerName = "R4HK00N";
+    private bool playerIsInLobby;
     private async void Start()
     {
         await UnityServices.InitializeAsync();
@@ -92,6 +93,7 @@ public class TestLobby : MonoBehaviour
 
             Printplayers(hostLobby);
             SetLobbyDataToUI();
+            SetPlayerDataToUI();
         }
         catch(LobbyServiceException e)
         {
@@ -145,6 +147,8 @@ public class TestLobby : MonoBehaviour
             Debug.Log("Joined lobby with code" + lobbyCode);
 
             Printplayers(joinedLobby);
+            SetLobbyDataToUI();
+            SetPlayerDataToUI();
         }
         catch(LobbyServiceException e)
         {
@@ -288,6 +292,17 @@ public class TestLobby : MonoBehaviour
     }
     public void SetLobbyDataToUI()
     {
-        lobbyUI.SetLobbyData(hostLobby.LobbyCode, hostLobby.Name);
+        lobbyUI.SetLobbyData(joinedLobby.LobbyCode, joinedLobby.Name);
+    }
+    public void SetPlayerDataToUI()
+    {
+        lobbyUI.SetPlayer(joinedLobby.AvailableSlots);
+        for (int i = 0; joinedLobby.Players.Count > 0; i++)
+        {
+            foreach(Player player in joinedLobby.Players)
+            {
+                lobbyUI.playerNames[i] = player.Data["PlayerName"].Value;
+            }
+        }
     }
 }
