@@ -317,6 +317,7 @@ public class TestLobby : MonoBehaviour
     }
     private void OnLobbyChanges(ILobbyChanges changes)
     {
+        changes.ApplyToLobby(joinedLobby);
         if (changes.PlayerJoined.Changed)
         {
             SetPlayerDataToUI();
