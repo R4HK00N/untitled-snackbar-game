@@ -3686,11 +3686,7 @@ MonoBehaviour:
   - {fileID: 1164013735}
   - {fileID: 1900611365}
   - {fileID: 1530444401}
-  playerNames:
-  - 
-  - 
-  - 
-  - 
+  playerNames: []
 --- !u!1 &1895392385
 GameObject:
   m_ObjectHideFlags: 0

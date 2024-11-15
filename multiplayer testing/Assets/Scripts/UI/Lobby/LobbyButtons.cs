@@ -15,7 +15,7 @@ public class LobbyButtons : MonoBehaviour
     public TMP_Text LobbyNameText;
     public GameObject[] playerTemplate;
     public TMP_Text[] playerNameText;
-    public string[] playerNames;
+    public List<string> playerNames = new List<string>();
 
     public void SetLobbyName()
     {

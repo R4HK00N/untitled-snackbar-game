@@ -4,6 +4,7 @@ using Unity.Services.Authentication;
 using Unity.Services.Core;
 using Unity.Services.Lobbies;
 using Unity.Services.Lobbies.Models;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class TestLobby : MonoBehaviour
@@ -296,13 +297,10 @@ public class TestLobby : MonoBehaviour
     }
     public void SetPlayerDataToUI()
     {
-        lobbyUI.SetPlayer(joinedLobby.AvailableSlots);
-        for (int i = 0; joinedLobby.Players.Count > 0; i++)
+        foreach (Player player in joinedLobby.Players)
         {
-            foreach(Player player in joinedLobby.Players)
-            {
-                lobbyUI.playerNames[i] = player.Data["PlayerName"].Value;
-            }
+            lobbyUI.playerNames.Add(player.Data["PlayerName"].Value);
         }
+        lobbyUI.SetPlayer(joinedLobby.AvailableSlots);
     }
 }
