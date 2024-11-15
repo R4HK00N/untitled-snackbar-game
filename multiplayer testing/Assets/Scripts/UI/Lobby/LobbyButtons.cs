@@ -11,6 +11,7 @@ public class LobbyButtons : MonoBehaviour
     public TMP_InputField LobbyNameInput;
     public TMP_InputField LobbyCodeInput;
     [Header("Created lobby UI")]
+    public GameObject startGameButton;
     public TMP_Text joinLobbyCodeText;
     public TMP_Text LobbyNameText;
     public GameObject[] playerTemplate;
@@ -38,6 +39,11 @@ public class LobbyButtons : MonoBehaviour
     {
         lobbyManager.lobbyName = LobbyNameInput.text;
         lobbyManager.CreateLobbyClicked();
+
+        if(lobbyManager.isHost)
+            startGameButton.SetActive(true);
+        else
+            startGameButton.SetActive(false);
     }
     public void JoinLobbyByCode()
     {

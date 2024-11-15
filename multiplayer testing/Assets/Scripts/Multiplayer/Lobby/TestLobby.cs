@@ -9,6 +9,7 @@ using UnityEngine;
 
 public class TestLobby : MonoBehaviour
 {
+    public TestRelay relay;
     public LobbyButtons lobbyUI;
     public int buttonClickedInt;
     [Header("UI")]
@@ -20,7 +21,7 @@ public class TestLobby : MonoBehaviour
     private float heartbeatTimer;
     private float lobbyUpdateTimer;
     private bool playerIsInLobby;
-    private bool isHost;
+    public bool isHost;
     private async void Start()
     {
         //await UnityServices.InitializeAsync();
@@ -84,6 +85,16 @@ public class TestLobby : MonoBehaviour
                 {
                     SetPlayerDataToUI();
                 }
+
+                if (joinedLobby.Data["StartGamePressed"].Value != "0")
+                {
+                    if (!isHost)
+                    {
+                        relay.JoinRelayPressed(joinedLobby.Data["StartGamePressed"].Value);
+                    }
+
+                    joinedLobby = null;
+                }
             }
         }
     }
@@ -100,6 +111,7 @@ public class TestLobby : MonoBehaviour
                 Data = new Dictionary<string, DataObject>
                 {
                     { "Map", new DataObject(DataObject.VisibilityOptions.Public, "SnackBar", DataObject.IndexOptions.S1 )},
+                    { "StartGamePressed", new DataObject(DataObject.VisibilityOptions.Member, "0")},
                 }
             };
 
@@ -119,6 +131,30 @@ public class TestLobby : MonoBehaviour
         catch(LobbyServiceException e)
         {
             Debug.Log(e);
+        }
+    }
+    public async void StartGameCLicked()
+    {
+        if (isHost)
+        {
+            try
+            {
+                relay.CreateRelayPressed();
+                
+                Lobby lobby = await Lobbies.Instance.UpdateLobbyAsync(joinedLobby.Id, new UpdateLobbyOptions
+                {
+                    Data = new Dictionary<string, DataObject>
+                    {
+                        { "StartGamePressed", new DataObject(DataObject.VisibilityOptions.Member, relay.joinCode) }
+                    }
+                });
+
+                joinedLobby = lobby;
+            }
+            catch (LobbyServiceException e)
+            {
+                Debug.Log(e);
+            }
         }
     }
 
@@ -266,6 +302,7 @@ public class TestLobby : MonoBehaviour
         try
         {
             await LobbyService.Instance.RemovePlayerAsync(joinedLobby.Id, joinedLobby.Players[1].Id);
+
         }
         catch (LobbyServiceException e)
         {

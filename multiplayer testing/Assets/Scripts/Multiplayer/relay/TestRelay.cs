@@ -4,12 +4,15 @@ using Unity.Netcode;
 using Unity.Netcode.Transports.UTP;
 using Unity.Services.Authentication;
 using Unity.Services.Core;
+using Unity.Services.Lobbies;
 using Unity.Services.Relay;
 using Unity.Services.Relay.Models;
 using UnityEngine;
 
 public class TestRelay : MonoBehaviour
 {
+    public TestLobby lobbyManager;
+    public string joinCode;
     private async void Start()
     {
         await UnityServices.InitializeAsync();
@@ -27,9 +30,7 @@ public class TestRelay : MonoBehaviour
         {
             Allocation allocation = await RelayService.Instance.CreateAllocationAsync(3);
 
-            string joinCode = await RelayService.Instance.GetJoinCodeAsync(allocation.AllocationId);
-
-            Debug.Log(joinCode);
+            joinCode = await RelayService.Instance.GetJoinCodeAsync(allocation.AllocationId);
 
             NetworkManager.Singleton.GetComponent<UnityTransport>().SetHostRelayData(
                 allocation.RelayServer.IpV4,
@@ -62,11 +63,19 @@ public class TestRelay : MonoBehaviour
                 joinAllocation.HostConnectionData
             );
 
-            NetworkManager.Singleton.StartHost();
+            NetworkManager.Singleton.StartClient();
         }
         catch(RelayServiceException e)
         {
             Debug.Log(e);
         }
+    }
+    public void CreateRelayPressed()
+    {
+        CreateRelay();
+    }
+    public void JoinRelayPressed(string joinCode)
+    {
+        JoinRelay(joinCode);
     }
 }
