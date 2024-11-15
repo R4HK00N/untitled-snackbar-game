@@ -50,6 +50,11 @@ public class LobbyButtons : MonoBehaviour
         joinLobbyCodeText.text = code;
         LobbyNameText.text = lobbyName;
     }
+
+    public void LeaveLobbyButton()
+    {
+        lobbyManager.LeaveClicked();
+    }
     public void SetPlayer(int amountOfPlayers, Lobby lobby)
     {
         Debug.Log(amountOfPlayers);
@@ -58,6 +63,10 @@ public class LobbyButtons : MonoBehaviour
             case 3:
                 playerTemplate[0].SetActive(true);
                 playerNameText[0].text = lobby.Players[0].Data["PlayerName"].Value;
+
+                playerTemplate[1].SetActive(false);
+                playerTemplate[2].SetActive(false);
+                playerTemplate[3].SetActive(false);
                 break;
             case 2:
                 playerTemplate[0].SetActive(true);
@@ -65,6 +74,9 @@ public class LobbyButtons : MonoBehaviour
 
                 playerTemplate[1].SetActive(true);
                 playerNameText[1].text = lobby.Players[1].Data["PlayerName"].Value;
+
+                playerTemplate[2].SetActive(false);
+                playerTemplate[3].SetActive(false);
                 break;
             case 1:
                 playerTemplate[0].SetActive(true);
@@ -75,6 +87,8 @@ public class LobbyButtons : MonoBehaviour
 
                 playerTemplate[2].SetActive(true);
                 playerNameText[2].text = lobby.Players[2].Data["PlayerName"].Value;
+
+                playerTemplate[3].SetActive(false);
                 break;
             case 0:
                 playerTemplate[0].SetActive(true);

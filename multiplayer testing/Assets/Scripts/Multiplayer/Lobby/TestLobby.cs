@@ -20,6 +20,7 @@ public class TestLobby : MonoBehaviour
     private float heartbeatTimer;
     private float lobbyUpdateTimer;
     private bool playerIsInLobby;
+    private bool isHost;
     private async void Start()
     {
         //await UnityServices.InitializeAsync();
@@ -49,10 +50,6 @@ public class TestLobby : MonoBehaviour
     {
         HandleLobbyHeartbeat();
         HandleLobbyPollForUpdates();
-        if (playerIsInLobby)
-        {
-            SetPlayerDataToUI();
-        }
     }
     private async void HandleLobbyHeartbeat()
     {
@@ -82,6 +79,11 @@ public class TestLobby : MonoBehaviour
 
                 Lobby lobby = await LobbyService.Instance.GetLobbyAsync(joinedLobby.Id);
                 joinedLobby = lobby;
+
+                if (playerIsInLobby)
+                {
+                    SetPlayerDataToUI();
+                }
             }
         }
     }
@@ -112,6 +114,7 @@ public class TestLobby : MonoBehaviour
             SetLobbyDataToUI();
             //SetPlayerDataToUI();
             playerIsInLobby = true;
+            isHost = true;
         }
         catch(LobbyServiceException e)
         {
@@ -316,5 +319,19 @@ public class TestLobby : MonoBehaviour
     public void SetPlayerDataToUI()
     {
         lobbyUI.SetPlayer(joinedLobby.AvailableSlots, joinedLobby);
+    }
+
+
+    public void LeaveClicked()
+    {
+        if (isHost)
+        {
+            MigrateLobbyHost();
+            LeaveLobby();
+        }
+        else
+        {
+            LeaveLobby();
+        }
     }
 }
