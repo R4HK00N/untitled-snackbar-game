@@ -18,7 +18,7 @@ public class TestLobby : MonoBehaviour
     private Lobby joinedLobby;
     private float heartbeatTimer;
     private float lobbyUpdateTimer;
-    private string playerName = "R4HK00N";
+    private string playerName = "R4HK00N 1";
     private bool playerIsInLobby;
     private async void Start()
     {
