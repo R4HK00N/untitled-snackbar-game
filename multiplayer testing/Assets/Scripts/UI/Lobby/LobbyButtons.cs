@@ -23,7 +23,7 @@ public class LobbyButtons : MonoBehaviour
     }
     public void SetLobbyCode()
     {
-        LobbyCodeInput.text = lobbyManager.lobbyCode;
+        lobbyManager.lobbyCode = LobbyCodeInput.text;
     }
     public void CreateLobbyButton(int buttenClickedIndex)
     {
