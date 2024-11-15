@@ -49,14 +49,32 @@ public class LobbyButtons : MonoBehaviour
                 playerNameText[0].text = playerNames[0];
                 break;
             case 2:
+                playerTemplate[0].SetActive(true);
+                playerNameText[0].text = playerNames[0];
+
                 playerTemplate[1].SetActive(true);
                 playerNameText[1].text = playerNames[1];
                 break;
             case 1:
+                playerTemplate[0].SetActive(true);
+                playerNameText[0].text = playerNames[0];
+
+                playerTemplate[1].SetActive(true);
+                playerNameText[1].text = playerNames[1];
+
                 playerTemplate[2].SetActive(true);
                 playerNameText[2].text = playerNames[2];
                 break;
             case 0:
+                playerTemplate[0].SetActive(true);
+                playerNameText[0].text = playerNames[0];
+
+                playerTemplate[1].SetActive(true);
+                playerNameText[1].text = playerNames[1];
+
+                playerTemplate[2].SetActive(true);
+                playerNameText[2].text = playerNames[2];
+
                 playerTemplate[3].SetActive(true);
                 playerNameText[3].text = playerNames[3];
                 break;
