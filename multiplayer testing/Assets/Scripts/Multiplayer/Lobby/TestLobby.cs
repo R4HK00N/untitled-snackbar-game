@@ -279,17 +279,13 @@ public class TestLobby : MonoBehaviour
             Debug.Log(e);
         }
     }
-    public void ButtonClicked(int buttonIndex)
+    public void CreateLobbyClicked()
     {
-        switch(buttonClickedInt)
-        {
-            case 0:
-                CreateLobby(lobbyName);
-                break;
-            case 1:
-                JoinLobbyByCode(lobbyCode);
-                break;
-        }
+        CreateLobby(lobbyName);
+    }
+    public void JoinLobbyClicked()
+    {
+        JoinLobbyByCode(lobbyCode);
     }
     public void SetLobbyDataToUI()
     {

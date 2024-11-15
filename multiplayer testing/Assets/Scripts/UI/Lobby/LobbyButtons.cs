@@ -27,11 +27,11 @@ public class LobbyButtons : MonoBehaviour
     }
     public void CreateLobbyButton(int buttenClickedIndex)
     {
-        lobbyManager.ButtonClicked(0);
+        lobbyManager.CreateLobbyClicked();
     }
     public void JoinLobbyByCode()
     {
-        lobbyManager.ButtonClicked(1);
+        lobbyManager.JoinLobbyClicked();
     }
 
     public void SetLobbyData(string code, string lobbyName)
