@@ -40,15 +40,14 @@ public class LobbyButtons : MonoBehaviour
         lobbyManager.lobbyName = LobbyNameInput.text;
         lobbyManager.CreateLobbyClicked();
 
-        if(lobbyManager.isHost)
-            startGameButton.SetActive(true);
-        else
-            startGameButton.SetActive(false);
+        startGameButton.SetActive(true);
     }
     public void JoinLobbyByCode()
     {
         lobbyManager.lobbyName = LobbyNameInput.text;
         lobbyManager.JoinLobbyClicked();
+
+        startGameButton.SetActive(false);
     }
 
     public void SetLobbyData(string code, string lobbyName)

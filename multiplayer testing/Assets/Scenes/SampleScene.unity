@@ -1615,7 +1615,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 522205739}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1895392386}
+        m_TargetAssemblyTypeName: TestLobby, Assembly-CSharp
+        m_MethodName: StartGameCLicked
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &522205739
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5024,7 +5036,7 @@ MonoBehaviour:
   playerNameInput: {fileID: 1466667590}
   LobbyNameInput: {fileID: 1283370947}
   LobbyCodeInput: {fileID: 1449601372}
-  startGameButton: {fileID: 0}
+  startGameButton: {fileID: 522205735}
   joinLobbyCodeText: {fileID: 342353063}
   LobbyNameText: {fileID: 818873041}
   playerTemplate:
@@ -5067,7 +5079,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 981e356fb4147b640be921fcb534044f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  relay: {fileID: 0}
+  relay: {fileID: 816770184}
   lobbyUI: {fileID: 1761587762}
   buttonClickedInt: 0
   lobbyName: MyLobby
