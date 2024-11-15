@@ -90,7 +90,7 @@ public class TestLobby : MonoBehaviour
                 {
                     if (!isHost)
                     {
-                        relay.JoinRelayPressed(joinedLobby.Data["StartGamePressed"].Value);
+                        relay.JoinRelayPressed();
                     }
 
                     joinedLobby = null;

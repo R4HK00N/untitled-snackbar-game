@@ -11,7 +11,6 @@ using UnityEngine;
 
 public class TestRelay : MonoBehaviour
 {
-    public TestLobby lobbyManager;
     public string joinCode;
     private async void Start()
     {
@@ -74,7 +73,7 @@ public class TestRelay : MonoBehaviour
     {
         CreateRelay();
     }
-    public void JoinRelayPressed(string joinCode)
+    public void JoinRelayPressed()
     {
         JoinRelay(joinCode);
     }
