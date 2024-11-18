@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Netcode;
 using Unity.Services.Authentication;
 using Unity.Services.Core;
 using Unity.Services.Lobbies;
@@ -7,7 +8,7 @@ using Unity.Services.Lobbies.Models;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class TestLobby : MonoBehaviour
+public class TestLobby : NetworkBehaviour
 {
     public TestRelay relay;
     public LobbyButtons lobbyUI;
@@ -21,7 +22,6 @@ public class TestLobby : MonoBehaviour
     private float heartbeatTimer;
     private float lobbyUpdateTimer;
     private bool playerIsInLobby;
-    public bool isHost;
     private async void Start()
     {
         //await UnityServices.InitializeAsync();
@@ -88,7 +88,7 @@ public class TestLobby : MonoBehaviour
 
                 if (joinedLobby.Data["StartGamePressed"].Value != "0")
                 {
-                    if (!isHost)
+                    if (IsHost)
                     {
                         relay.JoinRelayPressed();
                     }
@@ -124,9 +124,7 @@ public class TestLobby : MonoBehaviour
 
             Printplayers(hostLobby);
             SetLobbyDataToUI();
-            //SetPlayerDataToUI();
             playerIsInLobby = true;
-            isHost = true;
         }
         catch(LobbyServiceException e)
         {
@@ -135,7 +133,7 @@ public class TestLobby : MonoBehaviour
     }
     public async void StartGameCLicked()
     {
-        if (isHost)
+        if (IsHost)
         {
             try
             {
@@ -361,7 +359,7 @@ public class TestLobby : MonoBehaviour
 
     public void LeaveClicked()
     {
-        if (isHost)
+        if (IsHost)
         {
             MigrateLobbyHost();
             LeaveLobby();
