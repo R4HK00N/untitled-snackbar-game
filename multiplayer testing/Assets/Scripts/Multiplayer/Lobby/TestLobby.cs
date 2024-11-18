@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.Netcode;
 using Unity.Services.Authentication;
 using Unity.Services.Core;
 using Unity.Services.Lobbies;
@@ -8,7 +7,7 @@ using Unity.Services.Lobbies.Models;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class TestLobby : NetworkBehaviour
+public class TestLobby : MonoBehaviour
 {
     public TestRelay relay;
     public LobbyButtons lobbyUI;
@@ -22,6 +21,7 @@ public class TestLobby : NetworkBehaviour
     private float heartbeatTimer;
     private float lobbyUpdateTimer;
     private bool playerIsInLobby;
+    public bool isHost;
     private async void Start()
     {
         //await UnityServices.InitializeAsync();
@@ -88,7 +88,7 @@ public class TestLobby : NetworkBehaviour
 
                 if (joinedLobby.Data["StartGamePressed"].Value != "0")
                 {
-                    if (IsHost)
+                    if (!isHost)
                     {
                         relay.JoinRelayPressed();
                     }
@@ -124,7 +124,9 @@ public class TestLobby : NetworkBehaviour
 
             Printplayers(hostLobby);
             SetLobbyDataToUI();
+            //SetPlayerDataToUI();
             playerIsInLobby = true;
+            isHost = true;
         }
         catch(LobbyServiceException e)
         {
@@ -133,12 +135,12 @@ public class TestLobby : NetworkBehaviour
     }
     public async void StartGameCLicked()
     {
-        if (IsHost)
+        if (isHost)
         {
             try
-            {
+            {   
                 relay.CreateRelayPressed();
-                
+
                 Lobby lobby = await Lobbies.Instance.UpdateLobbyAsync(joinedLobby.Id, new UpdateLobbyOptions
                 {
                     Data = new Dictionary<string, DataObject>
@@ -359,7 +361,7 @@ public class TestLobby : NetworkBehaviour
 
     public void LeaveClicked()
     {
-        if (IsHost)
+        if (isHost)
         {
             MigrateLobbyHost();
             LeaveLobby();

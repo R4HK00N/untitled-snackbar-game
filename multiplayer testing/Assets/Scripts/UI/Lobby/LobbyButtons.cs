@@ -62,7 +62,6 @@ public class LobbyButtons : MonoBehaviour
     }
     public void SetPlayer(int amountOfPlayers, Lobby lobby)
     {
-        Debug.Log(amountOfPlayers);
         switch (amountOfPlayers)
         {
             case 3:
